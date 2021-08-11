@@ -17,9 +17,19 @@ namespace NotificationService.Common.Configurations
         public string FromAddressDisplayName { get; set; }
 
         /// <summary>
+        /// Gets or sets FromAddress2DisplayName.
+        /// </summary>
+        public string FromAddress2DisplayName { get; set; }
+
+        /// <summary>
         /// Gets or sets FromAddress.
         /// </summary>
         public string FromAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets FromAddress2.
+        /// </summary>
+        public string FromAddress2 { get; set; }
 
         /// <summary>
         /// Gets or sets SmtpPort.

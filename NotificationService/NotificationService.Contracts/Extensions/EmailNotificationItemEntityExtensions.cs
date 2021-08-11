@@ -96,7 +96,10 @@ namespace NotificationService.Contracts
                                  .Select(ccrecipient => new DirectSend.Models.Mail.EmailAddress { Address = ccrecipient }).ToList(),
                 ReplyTo = emailNotificationItemEntity.ReplyTo?.Split(Common.ApplicationConstants.SplitCharacter, System.StringSplitOptions.RemoveEmptyEntries)
                                  .Select(replyTo => new DirectSend.Models.Mail.EmailAddress { Address = replyTo }).ToList(),
-                FromAddresses = new List<DirectSend.Models.Mail.EmailAddress> { new DirectSend.Models.Mail.EmailAddress { Name = directSendSetting?.FromAddressDisplayName, Address = directSendSetting?.FromAddress } },
+                FromAddresses = new List<DirectSend.Models.Mail.EmailAddress>
+                {
+                    (emailNotificationItemEntity.From == directSendSetting?.FromAddress2) ? new DirectSend.Models.Mail.EmailAddress { Name = directSendSetting?.FromAddress2DisplayName, Address = directSendSetting?.FromAddress2 } : new DirectSend.Models.Mail.EmailAddress { Name = directSendSetting?.FromAddressDisplayName, Address = directSendSetting?.FromAddress },
+                },
                 FileName = emailNotificationItemEntity.Attachments?.Select(attachment => attachment.FileName).ToList(),
                 FileContent = emailNotificationItemEntity.Attachments?.Select(attachment => attachment.FileBase64).ToList(),
                 Importance = (DirectSend.Models.Mail.EmailMessage.ImportanceType)Enum.Parse(typeof(DirectSend.Models.Mail.EmailMessage.ImportanceType), emailNotificationItemEntity.Priority.ToString()),

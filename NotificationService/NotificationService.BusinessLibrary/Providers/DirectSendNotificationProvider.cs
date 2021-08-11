@@ -106,7 +106,10 @@ namespace NotificationService.BusinessLibrary.Providers
                     DirectSend.Models.Mail.EmailMessage message = new DirectSend.Models.Mail.EmailMessage();
                     message.Subject = item.Subject;
                     MessageBody body = await this.emailManager.GetMeetingInviteBodyAsync(applicationName, item).ConfigureAwait(false);
-                    message.FromAddresses = new List<DirectSend.Models.Mail.EmailAddress> { new DirectSend.Models.Mail.EmailAddress { Name = this.directSendSetting?.FromAddressDisplayName, Address = this.directSendSetting?.FromAddress } };
+                    message.FromAddresses = new List<DirectSend.Models.Mail.EmailAddress>
+                    {
+                        (item.From == this.directSendSetting?.FromAddress2) ? new DirectSend.Models.Mail.EmailAddress { Name = this.directSendSetting?.FromAddress2DisplayName, Address = this.directSendSetting?.FromAddress2 } : new DirectSend.Models.Mail.EmailAddress { Name = this.directSendSetting?.FromAddressDisplayName, Address = this.directSendSetting?.FromAddress },
+                    };
                     if (!sendForReal)
                     {
                         message.ToAddresses = toOverride.Split(Common.ApplicationConstants.SplitCharacter, System.StringSplitOptions.RemoveEmptyEntries)
